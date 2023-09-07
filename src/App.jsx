@@ -3,33 +3,50 @@ import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
 
+
 function App() {
-  const [count, setCount] = useState(0)
+  const [currentColor, setCurrentColor] = useState('#007BFF');
+
+  // Function to generate a random color
+  function getRandomColor() {
+    const letters = '0123456789ABCDEF';
+    let color = '#';
+    for (let i = 0; i < 6; i++) {
+      color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+  }
+
+  function changeBackgroundColor() {
+    const newColor = getRandomColor();
+    document.body.style.backgroundColor = newColor;
+    setCurrentColor(newColor);
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
+    <div className="App">
+      <nav className="top-nav">
+        <div className="top-nav-content">
+          <h2>Color Flipper</h2>
+          <ul className="nav-links">
+            <li>
+              <a href="#">Simple</a>
+            </li>
+            <li>
+              <a href="#">Hex</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+      <div className="center-content">
+        <div id="color-display">Background Color: <span id="current-color">{currentColor}</span></div>
+        <button id="change-color-button" onClick={changeBackgroundColor}>
+          Change Color
         </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    </div>
+  );
 }
 
-export default App
+export default App;
+
